@@ -32,6 +32,7 @@ resource "google_project_iam_member" "sa_attestor" {
       "roles/cloudkms.signerVerifier",
       "roles/containeranalysis.notes.attacher",
       "roles/containeranalysis.occurrences.editor", 
+      "roles/containeranalysis.notes.occurrences.viewer",
     ]
   )
 
@@ -47,7 +48,8 @@ resource "google_project_iam_member" "sa_attestation" {
       "roles/binaryauthorization.attestorsViewer",
       "roles/cloudkms.signerVerifier",
       "roles/containeranalysis.notes.attacher",
-      "roles/containeranalysis.occurrences.editor", 
+      "roles/containeranalysis.occurrences.editor",
+      "roles/containeranalysis.notes.occurrences.viewer",
     ]
   )
 
