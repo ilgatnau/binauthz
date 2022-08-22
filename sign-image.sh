@@ -14,6 +14,8 @@ KMS_KEYRING_NAME=keyring-example
 KMS_KEY_NAME=asymmetric-key-example
 KMS_KEY_VERSION=1
 
+gcloud auth activate-service-account --key-file=./sa-key.json
+
 gcloud beta container binauthz attestations sign-and-create \
     --project="${ATTESTATION_PROJECT_ID}" \
     --artifact-url="${IMAGE_TO_ATTEST}" \
