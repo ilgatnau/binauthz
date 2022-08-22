@@ -3,7 +3,7 @@ data "google_kms_crypto_key_version" "attestor-key-version" {
 }
 
 resource "google_binary_authorization_attestor" "attestor" {
-  project = "vm-import-346415"
+  project = google_project.attestor.project_id
   name    = "demo-attestor"
   attestation_authority_note {
     note_reference = google_container_analysis_note.note.name
@@ -19,7 +19,7 @@ resource "google_binary_authorization_attestor" "attestor" {
 
 #### Vulnerability Analysis Note
 resource "google_container_analysis_note" "note" {
-  project = "vm-import-346415"
+  project = google_project.attestor.project_id
   name    = "test-attestor-note"
   attestation_authority {
     hint {
