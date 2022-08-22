@@ -17,6 +17,7 @@ data "google_kms_crypto_key_version" "my_crypto_key_version" {
 }
 
 # we need a role with permissions cloudkms.cryptoKeyVersions.viewPublicKey
+# we permission these to attestor project
 resource "google_kms_crypto_key_iam_member" "binauthz_sigining_key" {
   for_each = toset(
     [
@@ -28,5 +29,8 @@ resource "google_kms_crypto_key_iam_member" "binauthz_sigining_key" {
   )
   crypto_key_id = google_kms_crypto_key.example-key.id
   role          = each.key
-  member        = "serviceAccount:binauthz-sa@vm-import-346415.iam.gserviceaccount.com"
+  member        = "serviceAccount:binauthz-sa@binauthz-attestor-test-project.iam.gserviceaccount.com"
+  depends_on = [
+    google_service_account.attestor_service_account
+  ]
 }
