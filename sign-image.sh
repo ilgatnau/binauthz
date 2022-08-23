@@ -4,8 +4,8 @@ ATTESTOR_PROJECT_ID=binauthz-attestor-test-project
 ATTESTATION_PROJECT_ID=binauthz-attestions-tst-prj
 
 ATTESTOR_NAME=demo-attestor
-IMAGE_PATH=gcr.io/google-containers/redis
-IMAGE_DIGEST=sha256:f066bcf26497fbc55b9bf0769cb13a35c0afa2aa42e737cc46b7fb04b23a2f25
+IMAGE_PATH=gcr.io/google-containers/addon-resizer-arm64
+IMAGE_DIGEST=sha256:ee76fa03fd8bf2105813681b8a50c90581777dcd2aa3676c69c74892727ebd51
 IMAGE_TO_ATTEST="${IMAGE_PATH}@${IMAGE_DIGEST}"
 
 KMS_KEY_PROJECT_ID=vm-import-346415

@@ -24,12 +24,12 @@ resource "google_kms_crypto_key_iam_member" "binauthz_sigining_key" {
       "roles/cloudkms.publicKeyViewer",
       "roles/cloudkms.signer",
       "roles/cloudkms.signerVerifier",
-      "roles/cloudkms.publicKeyViewer", # here to replace with custom role
+      "projects/vm-import-346415/roles/get_key_versions", # here to replace with custom role
     ]
   )
   crypto_key_id = google_kms_crypto_key.example-key.id
   role          = each.key
-  member        = "serviceAccount:binauthz-sa@binauthz-attestor-test-project.iam.gserviceaccount.com"
+  member        = "serviceAccount:binauthz-sa@binauthz-sa-project.iam.gserviceaccount.com"
   depends_on = [
     google_service_account.attestor_service_account
   ]

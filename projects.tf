@@ -1,3 +1,11 @@
+resource "google_project" "for_service_account" {
+  name       = "Project to store SA"
+  project_id = "binauthz-sa-project"
+  org_id     = "160037278965"
+
+  billing_account = "01A2F5-73127B-50AE5B"
+}
+
 resource "google_project" "attestor" {
   name       = "Attestor Project"
   project_id = "binauthz-attestor-test-project"

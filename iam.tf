@@ -1,7 +1,7 @@
 resource "google_service_account" "attestor_service_account" {
   account_id   = "binauthz-sa"
   display_name = "Binauthz Service Account"
-  project = google_project.attestor.project_id
+  project = google_project.for_service_account.project_id
 }
 
 resource "google_project_iam_member" "sa_attestor" {
@@ -18,7 +18,11 @@ resource "google_project_iam_member" "sa_attestor" {
   )
 
   role    = each.key
-  member  = "serviceAccount:binauthz-sa@binauthz-attestor-test-project.iam.gserviceaccount.com"
+  member  = "serviceAccount:binauthz-sa@binauthz-sa-project.iam.gserviceaccount.com"
+
+  depends_on = [
+    google_service_account.attestor_service_account
+  ]
 }
 
 resource "google_project_iam_member" "sa_attestation" {
@@ -35,5 +39,9 @@ resource "google_project_iam_member" "sa_attestation" {
   )
 
   role    = each.key
-  member  = "serviceAccount:binauthz-sa@binauthz-attestor-test-project.iam.gserviceaccount.com"
+  member  = "serviceAccount:binauthz-sa@binauthz-sa-project.iam.gserviceaccount.com"
+
+  depends_on = [
+    google_service_account.attestor_service_account
+  ]
 }
