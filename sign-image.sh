@@ -16,6 +16,7 @@ KMS_KEY_VERSION=1
 
 gcloud auth activate-service-account --key-file=./sa-key.json
 
+# Creates attestation
 gcloud beta container binauthz attestations sign-and-create \
     --project="${ATTESTATION_PROJECT_ID}" \
     --artifact-url="${IMAGE_TO_ATTEST}" \
@@ -27,7 +28,21 @@ gcloud beta container binauthz attestations sign-and-create \
     --keyversion-key="${KMS_KEY_NAME}" \
     --keyversion="${KMS_KEY_VERSION}"
 
+# Validates attestation
 gcloud container binauthz attestations list\
     --project="${ATTESTATION_PROJECT_ID}"\
     --attestor="projects/${ATTESTOR_PROJECT_ID}/attestors/${ATTESTOR_NAME}"\
-    --artifact-url="${IMAGE_TO_ATTEST}"
+    --artifact-url="${IMAGE_TO_ATTEST}" \
+    --format=json
+
+# deletes attestation
+OCCURRENCE_ID=$(gcloud container binauthz attestations list\
+    --project="${ATTESTATION_PROJECT_ID}"\
+    --attestor="projects/${ATTESTOR_PROJECT_ID}/attestors/${ATTESTOR_NAME}"\
+    --artifact-url="${IMAGE_TO_ATTEST}" \
+    --format=json | jq .[].name -r)
+
+OCCURRENCE_ID=$(cut -d'/' -f4 <<< $OCCURRENCE_ID)
+
+curl -H "Authorization: Bearer $(gcloud auth print-access-token)" -X DELETE \
+  https://containeranalysis.googleapis.com/v1beta1/projects/${ATTESTATION_PROJECT_ID}/occurrences/${OCCURRENCE_ID}
