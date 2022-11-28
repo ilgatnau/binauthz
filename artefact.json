@@ -1,0 +1,6 @@
+{
+    "artefact":[
+      "https://artifactory.sdlc.ctl.gcp.db.com/dkr-all/com/db/ct/cdh/document-link:3.0-4",
+      "https://artifactory.sdlc.ctl.gcp.db.com/dkr-all/com/db/ct/cdh/proxy:0.0.27-20220812112529"
+    ]
+}
